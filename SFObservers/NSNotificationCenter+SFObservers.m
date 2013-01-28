@@ -43,8 +43,8 @@ static NSString *NSNotificationCenterSFObserversRemoveSpecificSelector = @"sf_or
   Method swappedMethod = class_getInstanceMethod(self, aSwappedSelector);
 
   SEL newSelector = NSSelectorFromString([NSString stringWithFormat:@"sf_original_%@", NSStringFromSelector(aOriginalSelector)]);
-  class_addMethod(self, newSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-  class_replaceMethod(self, aOriginalSelector, method_getImplementation(swappedMethod), method_getTypeEncoding(swappedMethod));
+  class_addMethod([self class], newSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+  class_replaceMethod([self class], aOriginalSelector, method_getImplementation(swappedMethod), method_getTypeEncoding(swappedMethod));
 }
 
 + (void)load
